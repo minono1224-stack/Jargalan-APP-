@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жаргалан СӨБ Систем - Хүүхдийн Ажиглалт & Үнэлгээ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #fdf2f8 0%, #f0fdf4 50%, #eff6ff 100%); }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .animate-bounce-slow { animation: bounce-slow 3s infinite ease-in-out; }
+        .card-hover:hover { transform: translateY(-3px); transition: all 0.25s ease; box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- ЗҮҮН ТАЛЫН ЦЭС -->
+    <aside class="w-72 bg-white/95 backdrop-blur-md border-r border-pink-100 flex flex-col justify-between shadow-lg">
+        <div class="overflow-y-auto">
+            <div class="p-4 flex items-center gap-3 border-b border-pink-100 bg-gradient-to-r from-pink-50 to-yellow-50">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 text-white flex items-center justify-center text-xl shadow-md animate-bounce-slow">
+                    👁️
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-gray-800 text-xs">Жаргалан СӨБ Систем</h1>
+                    <p class="text-[10px] text-teal-600 font-bold">⭐ Ажиглалт & Үнэлгээ</p>
+                </div>
+            </div>
+
+            <nav class="px-3 py-3 space-y-1.5 text-xs font-medium text-gray-600">
+                <a href="index.html" class="flex items-center gap-3 px-3.5 py-2.5 hover:bg-pink-50 rounded-2xl transition">
+                    <i class="fa-solid fa-house w-4"></i> Буцах (Үндсэн самбар)
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3.5 py-2.5 bg-teal-500 text-white rounded-2xl font-bold shadow-md shadow-teal-200">
+                    <i class="fa-solid fa-eye w-4"></i> Ажиглалт & Дүгнэлтийн сан
+                </a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- БАРУУН ТАЛЫН ҮНДСЭН ХЭСЭГ -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+        <!-- Баннер -->
+        <div class="bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-500 rounded-3xl p-6 text-white shadow-xl flex items-center justify-between relative overflow-hidden">
+            <div class="absolute -right-5 -bottom-5 opacity-20 text-8xl animate-bounce-slow">📝</div>
+            <div class="relative z-10">
+                <h2 class="text-xl font-bold mb-1">Хүүхдийн ажиглалт, оноо ба дүгнэлтийн нэгдсэн хэсэг 🔍</h2>
+                <p class="text-teal-100 text-xs">Өдөр тутмын оноо, багшийн тэмдэглэл, Word/PDF файлаа нэг дор оруулж хадгалаарай. (Он сар автоматаар үүснэ)</p>
+            </div>
+        </div>
+
+        <!-- Ажиглалт оруулах форм -->
+        <div class="bg-white/95 backdrop-blur p-6 rounded-3xl shadow-sm border border-teal-100 space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-gray-800"><i class="fa-solid fa-file-pen text-teal-600 mr-2"></i> Шинэ ажиглалт & Үнэлгээ бүртгэх</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-bold text-gray-700">Хүүхдийн нэр</label>
+                    <select id="childName" class="w-full border border-teal-200 rounded-xl p-2.5 mt-1 outline-none focus:border-teal-500 bg-white">
+                        <option>Т. Ананд (Бэлтгэл бүлэг)</option>
+                        <option>Х. Хулан (Бэлтгэл бүлэг)</option>
+                        <option>Б. Төгөлдөр (Бэлтгэл бүлэг)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="font-bold text-gray-700">Өдрийн оноо (1-10)</label>
+                    <select id="childScore" class="w-full border border-teal-200 rounded-xl p-2.5 mt-1 outline-none focus:border-teal-500 bg-white font-bold text-teal-600">
+                        <option value="10 оноо (Маш сайн)">10 оноо (Маш сайн)</option>
+                        <option value="9 оноо (Сайн)">9 оноо (Сайн)</option>
+                        <option value="8 оноо (Дунд)">8 оноо (Дунд)</option>
+                        <option value="7 оноо болон доош">7 оноо болон доош</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="font-bold text-gray-700">Ажиглалтын чиглэл</label>
+                    <input type="text" id="obsCategory" placeholder="Жишээ нь: Нийгэмшихүй / Хэл яриа" class="w-full border border-teal-200 rounded-xl p-2.5 mt-1 outline-none focus:border-teal-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="font-bold text-gray-700">Багшийн дүгнэлт & Өдрийн тэмдэглэл (Эцэг эхэд харагдана)</label>
+                <textarea id="obsConclusion" class="w-full h-24 border border-teal-200 rounded-xl p-3 mt-1 outline-none focus:border-teal-500" placeholder="Хүүхдийн тухайн өдрийн идэвх оролцоо, ахиц дэвшлийн талаар дэлгэрэнгүй бичих..."></textarea>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-3 pt-2">
+                <div>
+                    <label class="font-bold text-gray-700 block mb-1">Файл хавсаргах (Word / PDF)</label>
+                    <input type="file" id="obsFile" accept=".doc,.docx,.pdf" class="border border-teal-200 p-2 rounded-xl text-[11px] bg-white">
+                </div>
+                <button onclick="saveObservation()" class="w-full md:w-auto bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
+                    <i class="fa-solid fa-floppy-disk mr-1"></i> Ажиглалт & Үнэлгээ хадгалах
+                </button>
+            </div>
+        </div>
+
+        <!-- Хадгалагдсан түүх -->
+        <div class="bg-white/95 backdrop-blur p-6 rounded-3xl shadow-sm border border-teal-100 space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-gray-800"><i class="fa-solid fa-list-check text-teal-600 mr-2"></i> Хадгалагдсан ажиглалт & үнэлгээний түүх</h3>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left" id="obsTable">
+                    <thead>
+                        <tr class="text-gray-400 border-b pb-2">
+                            <th class="pb-3">Огноо, цаг (Автомат)</th>
+                            <th class="pb-3">Хүүхдийн нэр</th>
+                            <th class="pb-3">Оноо</th>
+                            <th class="pb-3">Чиглэл</th>
+                            <th class="pb-3">Дүгнэлт / Тэмдэглэл</th>
+                            <th class="pb-3">Хавсралт</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50 text-gray-700" id="obsList">
+                        <tr>
+                            <td class="py-3 font-semibold text-teal-600">2026-11-16 21:30</td>
+                            <td class="py-3 font-bold">Т. Ананд</td>
+                            <td class="py-3 font-bold text-teal-600">10 оноо</td>
+                            <td class="py-3">Хэл яриа</td>
+                            <td class="py-3">Өөрийн санааг маш баялаг үгсийн сангаар илэрхийлж байна.</td>
+                            <td class="py-3"><a href="#" class="text-blue-600 hover:underline"><i class="fa-solid fa-file-pdf"></i> Anand_ajiglal.pdf</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JavaScript - Автомат огноо, цаг болон өгөгдөл хадгалах логик -->
+    <script>
+        function saveObservation() {
+            const child = document.getElementById('childName').value;
+            const score = document.getElementById('childScore').value;
+            const category = document.getElementById('obsCategory').value;
+            const conclusion = document.getElementById('obsConclusion').value;
+            const fileInput = document.getElementById('obsFile');
+            const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'Файл хавсаргаагүй';
+
+            if(!conclusion) {
+                alert('Багшийн дүгнэлт тэмдэглэлийг бичнэ үү!');
+                return;
+            }
+
+            // Автоматаар одоогийн он сар, цагийг үүсгэх
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const dateTimeString = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+            // Хүснэгтэд шинэ мөр нэмэх
+            const tbody = document.getElementById('obsList');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="py-3 font-semibold text-teal-600">${dateTimeString}</td>
+                <td class="py-3 font-bold">${child.split(' ')[0]} ${child.split(' ')[1]}</td>
+                <td class="py-3 font-bold text-teal-600">${score}</td>
+                <td class="py-3">${category || 'Ерөнхий'}</td>
+                <td class="py-3">${conclusion}</td>
+                <td class="py-3"><a href="#" class="text-blue-600 hover:underline"><i class="fa-solid fa-file-lines"></i> ${fileName}</a></td>
+            `;
+            tbody.prepend(newRow);
+
+            // Талбаруудыг цэвэрлэх
+            document.getElementById('obsCategory').value = '';
+            document.getElementById('obsConclusion').value = '';
+            fileInput.value = '';
+
+            alert('Ажиглалт, оноо болон дүгнэлт амжилттай хадгалагдлаа! Он сар, цаг автоматаар бүртгэгдлээ. 🕒✨');
+        }
+    </script>
+</body>
+</html>

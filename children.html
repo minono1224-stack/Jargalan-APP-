@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бяцхан үрс - Чандмань-Өндөр СӨБ</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome ไอкон -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff3e0 0%, #e1f5fe 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            color: #2d3748;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header хэсэг */
+        .page-header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border: 3px solid #ffd54f;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ff6f00;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title p {
+            color: #78909c;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #ff8a65, #ff5722);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.6);
+        }
+
+        /* Хайлт болон шүүлтүүр */
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ab47bc;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 50px;
+            border: 3px solid #ce93d8;
+            background: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #ab47bc;
+            box-shadow: 0 0 15px rgba(171, 71, 188, 0.2);
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .chip {
+            background: #ffffff;
+            border: 2px solid #b2dfdb;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #00796b;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .chip.active, .chip:hover {
+            background: #26a69a;
+            color: white;
+            border-color: #26a69a;
+            box-shadow: 0 4px 12px rgba(38, 166, 154, 0.3);
+        }
+
+        /* Хүүхдийн картуудын сүлжээ */
+        .kids-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .kid-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 6px solid #42a5f5;
+        }
+
+        .kid-card:nth-child(2n) { border-top-color: #66bb6a; }
+        .kid-card:nth-child(3n) { border-top-color: #ffa726; }
+        .kid-card:nth-child(4n) { border-top-color: #ab47bc; }
+        .kid-card:nth-child(5n) { border-top-color: #ec407a; }
+
+        .kid-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .kid-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            background: #f0f4c3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .kid-info {
+            text-align: center;
+        }
+
+        .kid-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #37474f;
+            margin-bottom: 4px;
+        }
+
+        .kid-group {
+            display: inline-block;
+            background: #e0f2f1;
+            color: #00695c;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .kid-details {
+            text-align: left;
+            background: #f8fafc;
+            padding: 12px 15px;
+            border-radius: 14px;
+            font-size: 13px;
+            color: #546e7a;
+            margin-bottom: 15px;
+        }
+
+        .kid-details p {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kid-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .kid-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-view {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        .btn-view:hover { background: #bbdefb; }
+
+        .btn-edit {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+        .btn-edit:hover { background: #ffecb3; }
+
+        /* Modal цонх (Шинэ хүүхэд нэмэх) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            transition: all 0.3s;
+            border-top: 8px solid #ff7043;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #e65100;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: #f5f5f5;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            color: #757575;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #455a64;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 15px;
+            border: 2px solid #cfd8dc;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: #ff7043;
+            box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.15);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #66bb6a, #43a047);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.3);
+            transition: 0.2s;
+        }
+
+        .btn-save:hover {
+            background: linear-gradient(135deg, #43a047, #2e7d32);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Толгой хэсэг -->
+        <div class="page-header">
+            <div class="header-title">
+                <h1><i class="fa-solid fa-child-reaching" style="color: #ff7043;"></i> Бяцхан үрсийн жагсаалт</h1>
+                <p>Чандмань-Өндөр СӨБ-ын бүх бүлгүүдийн хүүхдийн мэдээлэл</p>
+            </div>
+            <button class="btn-add" onclick="toggleModal(true)">
+                <i class="fa-solid fa-circle-plus"></i> Шинэ хүүхэд нэмэх
+            </button>
+        </div>
+
+        <!-- Хайлт болон шүүлтүүр -->
+        <div class="filter-section">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Хүүхдийн нэр эсвэл ангиар хайх...">
+            </div>
+            <div class="filter-chips">
+                <div class="chip active">Бүгд (42)</div>
+                <div class="chip">Маша (Бага бүлэг)</div>
+                <div class="chip">Пороро (Дунд бүлэг)</div>
+                <div class="chip">Бяцхан од (Ахлах бүлэг)</div>
+            </div>
+        </div>
+
+        <!-- Хүүхдийн картуудын сет -->
+        <div class="kids-grid">
+            <!-- Кар 1 -->
+            <div class="kid-card">
+                <div class="kid-avatar" style="background: #e3f2fd;">👦</div>
+                <div class="kid-info">
+                    <div class="kid-name">Тэмүүлэн Батбаяр</div>
+                    <span class="kid-group">Пороро бүлэг</span>
+                    <div class="kid-details">
+                        <p><span>Нас:</span> <b>5 настай</b></p>
+                        <p><span>Эцэг/эх:</span> <b>Батбаяр (9911...)</b></p>
+                        <p><span>Ирц өнөөдөр:</span> <b style="color: #2e7d32;">Ирсэн ✅</b></p>
+                    </div>
+                    <div class="kid-actions">
+                        <button class="btn-action btn-view"><i class="fa-solid fa-eye"></i> Дэлгэрэнгүй</button>
+                        <button class="btn-action btn-edit"><i class="fa-solid fa-pen"></i> Засах</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кар 2 -->
+            <div class="kid-card">
+                <div class="kid-avatar" style="background: #fce4ec;">👧</div>
+                <div class="kid-info">
+                    <div class="kid-name">Амин-Эрдэнэ Номин</div>
+                    <span class="kid-group" style="background: #fce4ec; color: #c2185b;">Маша бүлэг</span>
+                    <div class="kid-details">
+                        <p><span>Нас:</span> <b>3 настай</b></p>
+                        <p><span>Эцэг/эх:</span> <b>Номинсувд (8811...)</b></p>
+                        <p><span>Ирц өнөөдөр:</span> <b style="color: #2e7d32;">Ирсэн ✅</b></p>
+                    </div>
+                    <div class="kid-actions">
+                        <button class="btn-action btn-view"><i class="fa-solid fa-eye"></i> Дэлгэрэнгүй</button>
+                        <button class="btn-action btn-edit"><i class="fa-solid fa-pen"></i> Засах</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кар 3 -->
+            <div class="kid-card">
+                <div class="kid-avatar" style="background: #fff3e0;">👦</div>
+                <div class="kid-info">
+                    <div class="kid-name">Мөнх-Эгшиглэн Төгөлдөр</div>
+                    <span class="kid-group" style="background: #fff3e0; color: #ef6c00;">Бяцхан од бүлэг</span>
+                    <div class="kid-details">
+                        <p><span>Нас:</span> <b>6 настай</b></p>
+                        <p><span>Эцэг/эх:</span> <b>Төгөлдөр (9411...)</b></p>
+                        <p><span>Ирц өнөөдөр:</span> <b style="color: #c62828;">Чөлөөтэй ❌</b></p>
+                    </div>
+                    <div class="kid-actions">
+                        <button class="btn-action btn-view"><i class="fa-solid fa-eye"></i> Дэлгэрэнгүй</button>
+                        <button class="btn-action btn-edit"><i class="fa-solid fa-pen"></i> Засах</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кар 4 -->
+            <div class="kid-card">
+                <div class="kid-avatar" style="background: #e8f5e9;">👧</div>
+                <div class="kid-info">
+                    <div class="kid-name">Хүслэн Энхтулга</div>
+                    <span class="kid-group" style="background: #e8f5e9; color: #2e7d32;">Пороро бүлэг</span>
+                    <div class="kid-details">
+                        <p><span>Нас:</span> <b>5 настай</b></p>
+                        <p><span>Эцэг/эх:</span> <b>Энхтулга (8911...)</b></p>
+                        <p><span>Ирц өнөөдөр:</span> <b style="color: #2e7d32;">Ирсэн ✅</b></p>
+                    </div>
+                    <div class="kid-actions">
+                        <button class="btn-action btn-view"><i class="fa-solid fa-eye"></i> Дэлгэрэнгүй</button>
+                        <button class="btn-action btn-edit"><i class="fa-solid fa-pen"></i> Засах</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Шинэ хүүхэд бүртгэх Modal -->
+    <div class="modal-overlay" id="childModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-child"></i> Шинэ хүүхэд бүртгэх</h2>
+                <button class="close-btn" onclick="toggleModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Хүүхдийн овог, нэр</label>
+                    <input type="text" class="form-control" placeholder="Жишээ нь: Болд Эрдэнэ" required>
+                </div>
+                <div class="form-group">
+                    <label>Анги сонгох</label>
+                    <select class="form-control">
+                        <option>Маша (Бага бүлэг)</option>
+                        <option>Пороро (Дунд бүлэг)</option>
+                        <option>Бяцхан од (Ахлах бүлэг)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Нас</label>
+                    <input type="number" class="form-control" placeholder="Жишээ нь: 4" required>
+                </div>
+                <div class="form-group">
+                    <label>Эцэг эхийн утасны дугаар</label>
+                    <input type="tel" class="form-control" placeholder="99112233" required>
+                </div>
+                <button type="submit" class="btn-save">Бүртгэлийг хадгалах</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(show) {
+            const modal = document.getElementById('childModal');
+            if (show) {
+                modal.classList.add('active');
+            } else {
+                modal.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

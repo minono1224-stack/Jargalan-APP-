@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зөвлөмж болон Мэдээлэл - Чандмань-Өндөр СӨБ</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Айкон -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff3e0 0%, #e1f5fe 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            color: #2d3748;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Толгой хэсэг - Солонгорсон хөгжилтэй загвар */
+        .page-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border: 4px solid #ffb74d;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ff6f00;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title p {
+            color: #78909c;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* Таб сонголтууд */
+        .tabs-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: #ffffff;
+            border: 3px solid #ffcc80;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 15px;
+            color: #ef6c00;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: linear-gradient(135deg, #ffa726, #fb8c00);
+            color: white;
+            border-color: #ffa726;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+        }
+
+        /* Үндсэн контент хайрцаг */
+        .tab-content {
+            display: none;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            animation: fadeIn 0.4s ease;
+            border-top: 8px solid #26a69a;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #00796b;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px dashed #b2dfdb;
+            padding-bottom: 12px;
+        }
+
+        /* Форм хэсэг */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 800;
+            color: #37474f;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 3px solid #b2dfdb;
+            border-radius: 16px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: #26a69a;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(38, 166, 154, 0.15);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #26a69a, #00897b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(38, 166, 154, 0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(38, 166, 154, 0.6);
+        }
+
+        /* Ирсэн зөвлөмжийн карточкауд */
+        .recommendation-card {
+            background: linear-gradient(135deg, #fff9c4, #fffde7);
+            border-left: 8px solid #fbc02d;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.2s;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .rec-info h3 {
+            font-size: 19px;
+            font-weight: 900;
+            color: #f57f17;
+            margin-bottom: 6px;
+        }
+
+        .rec-info p {
+            font-size: 14px;
+            color: #455a64;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .rec-meta {
+            font-size: 12px;
+            color: #78909c;
+            display: flex;
+            gap: 15px;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 12px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(46, 125, 50, 0.15);
+        }
+
+        .unread-badge {
+            background: #ffebee;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Толгой хэсэг -->
+        <div class="page-header">
+            <div class="header-title">
+                <h1><i class="fa-solid fa-bullhorn" style="color: #ffb300;"></i> Зөвлөмж болон Мэдээллийн Самбар</h1>
+                <p>Цэцэрлэгийн хамт олон, удирдлага болон эцэг эхчүүдийн дуу хоолой, зөвлөгөө</p>
+            </div>
+            <div>
+                <span class="status-badge" style="font-size: 14px; padding: 8px 18px;"><i class="fa-solid fa-face-smile-beam"></i> Хөгжилтэй хамт олон</span>
+            </div>
+        </div>
+
+        <!-- Таб сонголтууд -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-send')"><i class="fa-solid fa-paper-plane"></i> Зөвлөмж илгээх</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-received')"><i class="fa-solid fa-inbox"></i> Надад ирсэн зөвлөмжүүд (3)</button>
+        </div>
+
+        <!-- 1. ЗӨВЛӨМЖ ИЛГЭЭХ ХЭСЭГ -->
+        <div id="tab-send" class="tab-content active">
+            <div class="section-title"><i class="fa-solid fa-wand-magic-sparkles" style="color: #ff9800;"></i> Шинэ зөвлөмж, чиглэл илгээх</div>
+            <form>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Хүлээн авагч сонгох</label>
+                        <select class="form-control" required>
+                            <option value="" disabled selected>Хэнд илгээх вэ?</option>
+                            <option value="assistant">Туслах багш</option>
+                            <option value="cook">Тогооч / Хоол зүйч</option>
+                            <option value="staff">Бусад ажилтан</option>
+                            <option value="parent">Эцэг эхчүүд</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Зөвлөмжийн гарчиг</label>
+                        <input type="text" class="form-control" placeholder="Жишээ нь: Хүүхдийн гадаа тоглох аюулгүй байдал" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Зөвлөмжийн агуулга</label>
+                    <textarea class="form-control" placeholder="Энд зөвлөмж, мэдээллийн дэлгэрэнгүйг бичнэ үү..."></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Файл эсвэл зураг хавсаргах</label>
+                        <input type="file" class="form-control" multiple>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Илгээх</button>
+            </form>
+        </div>
+
+        <!-- 2. НАДАД ИРСЭН ЗӨВЛӨМЖҮҮД -->
+        <div id="tab-received" class="tab-content">
+            <div class="section-title"><i class="fa-solid fa-box-open" style="color: #26a69a;"></i> Удирдлага болон бусдаас ирсэн зөвлөмжүүд</div>
+            
+            <!-- Кар 1 -->
+            <div class="recommendation-card">
+                <div class="rec-info">
+                    <h3>Өвлийн улирлын дархлаа дэмжих хооллолтын зөвлөмж</h3>
+                    <p>Хүүхдүүдийн өдрийн хоолонд амин дэмтэй жимс болон халуун аарц түлхүү өгөх тал дээр анхаарч ажиллахыг зөвлөж байна.</p>
+                    <div class="rec-meta">
+                        <span><i class="fa-solid fa-user-shield"></i> Ирүүлсэн: Хоол зүйч / Эмч</span>
+                        <span><i class="fa-solid fa-calendar-days"></i> 2026-11-17</span>
+                    </div>
+                </div>
+                <span class="status-badge unread-badge">Шинэ 💌</span>
+            </div>
+
+            <!-- Кар 2 -->
+            <div class="recommendation-card" style="border-left-color: #26a69a; background: linear-gradient(135deg, #e0f2f1, #f5fffd);">
+                <div class="rec-info">
+                    <h3 style="color: #00796b;">Анги танхимын тохижилт болон аюулгүй байдал</h3>
+                    <p>Бүлгийн багш нар тоглоомын өрөөний цэвэрлэгээ болон хүүхдийн ширээ сандлын зайг зөв байрлуулах тал дээр арга зүйн зөвлөмж хүргүүлж байна.</p>
+                    <div class="rec-meta">
+                        <span><i class="fa-solid fa-user-tie"></i> Ирүүлсэн: Арга зүйч</span>
+                        <span><i class="fa-solid fa-calendar-days"></i> 2026-11-15</span>
+                    </div>
+                </div>
+                <span class="status-badge">Уншсан ✅</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

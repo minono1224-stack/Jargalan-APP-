@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чандмань-Өндөр СӨБ - Эмчийн Самбар</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --primary-hover: #ff4757;
+            --bg-color: #fff1f2;
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --border-color: #ffdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fbc531 0%, #ff6b81 50%, #70a1ff 100%);
+            color: var(--text-color);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 4px solid #fff;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #747d8c;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #dfe4ea;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #ffeaa7;
+            color: #2d3436;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #fff9fa;
+            outline: none;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .save-btn:hover {
+            background-color: #ff6b81;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #70a1ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .back-btn:hover { background-color: #1e90ff; }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #747d8c;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='login.html'">⬅️ Буцах / Гарах</button>
+        
+        <h2>🩺 Эмчийн Эрүүл Мэндийн Самбар</h2>
+        <p class="subtitle">Бүлгийн багшийн ирцээс «Өвчтэй» гэж тэмдэглэгдсэн хүүхдүүдийн бүртгэл болон хяналт</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Бүлэг</th>
+                    <th>Хүүхдийн нэр</th>
+                    <th>Багшийн оруулсан шалтгаан</th>
+                    <th>Эмчийн үзлэг / Авсан арга хэмжээ</th>
+                </tr>
+            </thead>
+            <tbody id="doctorTableBody">
+                <!-- Динмикаар өвчтэй хүүхдүүд орж ирнэ -->
+            </tbody>
+        </table>
+
+        <button class="save-btn" onclick="saveDoctorData()">💾 Эмчийн бүртгэлийг хадгалах</button>
+    </div>
+
+    <!-- Дундын өгөгдлийн сантай холбогдох холбоос -->
+    <script src="db.js"></script>
+    <script>
+        function loadDoctorTable() {
+            const children = SOB_DB.getChildren();
+            // Зөвхөн "Өвчтэй" төлөвтэй хүүхдүүдийг шүүж авах
+            const sickChildren = children.filter(c => c.attendance === "Өвчтэй");
+            const tbody = document.getElementById('doctorTableBody');
+
+            if (sickChildren.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="no-data">🎉 Өнөөдөр өвчтэй бүртгэгдсэн хүүхэд байхгүй байна.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = sickChildren.map((c) => {
+                // Үндсэн жагсаалт дахь индексийг олох
+                const originalIndex = children.findIndex(item => item.id === c.id);
+                return `
+                    <tr>
+                        <td><b>${c.group}</b></td>
+                        <td>${c.name}</td>
+                        <td style="color: #ff4757; font-weight: bold;">${c.reason || 'Шалтгаан бичээгүй'}</td>
+                        <td>
+                            <input type="text" id="doc_note_${originalIndex}" value="${c.docNote || ''}" placeholder="Эмчийн тэмдэглэл, зөвлөгөө бичих...">
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function saveDoctorData() {
+            const children = SOB_DB.getChildren();
+            
+            children.forEach((c, index) => {
+                const noteInput = document.getElementById(`doc_note_${index}`);
+                if (noteInput) {
+                    c.docNote = noteInput.value;
+                }
+            });
+
+            SOB_DB.saveChildren(children);
+            alert("✅ Эмчийн тэмдэглэл амжилттай хадгалагдлаа!");
+            loadDoctorTable();
+        }
+
+        window.onload = loadDoctorTable;
+    </script>
+</body>
+</html>

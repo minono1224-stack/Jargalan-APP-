@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чандмань-Өндөр СӨБ - Эрхлэгчийн Самбар</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --primary-hover: #ff4757;
+            --bg-color: #fff1f2;
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --border-color: #ffdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fbc531 0%, #ff6b81 50%, #70a1ff 100%);
+            color: var(--text-color);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 4px solid #fff;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #747d8c;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #fff0f3;
+            border: 2px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 22px;
+            color: var(--primary-hover);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: #57606f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #dfe4ea;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #ffeaa7;
+            color: #2d3436;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff9fa;
+        }
+
+        .badge-present { background-color: #2ed573; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+        .badge-sick { background-color: #ff4757; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+        .badge-leave { background-color: #ffa502; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+        .badge-absent { background-color: #2f3542; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px; }
+
+        .back-btn {
+            background-color: #70a1ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .back-btn:hover { background-color: #1e90ff; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='login.html'">⬅️ Буцах / Гарах</button>
+        
+        <h2>👑 Эрхлэгч & Арга зүйчийн Самбар</h2>
+        <p class="subtitle">Багш нарын оруулсан мэдээлэлд үндэслэн хүүхдийн ирц болон хөгжлийн түвшинг (СҮД) шууд хянах хэсэг</p>
+
+        <!-- Ерөнхий нэгдсэн үзүүлэлтүүд (Мэдрэх хэсэг) -->
+        <div class="stats-grid" id="statsContainer">
+            <!-- Динамикаар тооцогдож орно -->
+        </div>
+
+        <h4 style="color: #2f3542; margin-top: 20px;">🧸 Бүх бүлгийн хүүхдүүдийн ирц болон хөгжлийн түвшин:</h4>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Бүлэг</th>
+                    <th>Хүүхдийн нэр</th>
+                    <th>Өнөөдрийн ирц</th>
+                    <th>Шалтгаан (Өвчтэй/Чөлөөтэй)</th>
+                    <th>Хөгжлийн түвшин (СҮД)</th>
+                </tr>
+            </thead>
+            <tbody id="adminTableBody">
+                <!-- db.js-ээс мэдээлэл татагдаж орно -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Дундын өгөгдлийн сантай холбогдох холбоос -->
+    <script src="db.js"></script>
+    <script>
+        function renderAdminDashboard() {
+            // db.js дотроос хүүхдүүдийн мэдээллийг дуудах
+            const children = SOB_DB.getChildren();
+
+            // Статистик тооцоолох
+            const total = children.length;
+            const independent = children.filter(c => c.sudLevel === "Бие даан гүйцэтгэдэг").length;
+            const support = children.filter(c => c.sudLevel === "Дэмжлэгтэй гүйцэтгэдэг").length;
+            const notYet = children.filter(c => c.sudLevel === "Хараахан эзэмшээгүй").length;
+
+            // Дээд талын статистик карт харуулах
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-card">
+                    <h3>${total}</h3>
+                    <p>🧸 Нийт хүүхэд</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${independent}</h3>
+                    <p>🌟 Бие даан гүйцэтгэдэг</p>
+                </div>
+                <div class="stat-card">
+                    <h3>${support}</h3>
+                    <p>🤝 Дэмжлэгтэй гүйцэтгэдэг</p>
+                </div>
+                <div class="stat-card" style="border-color: #ff4757; background: #fff5f5;">
+                    <h3 style="color: #ff4757;">${notYet}</h3>
+                    <p>📌 Анхаарах (Эзэмшээгүй)</p>
+                </div>
+            `;
+
+            // Хүснэгтийн мэдээллийг үүсгэх
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = children.map(c => {
+                let badgeClass = 'badge-present';
+                if (c.attendance === 'Өвчтэй') badgeClass = 'badge-sick';
+                else if (c.attendance === 'Чөлөөтэй') badgeClass = 'badge-leave';
+                else if (c.attendance === 'Тасалсан') badgeClass = 'badge-absent';
+
+                return `
+                    <tr>
+                        <td><b>${c.group}</b></td>
+                        <td>${c.name}</td>
+                        <td><span class="${badgeClass}">${c.attendance}</span></td>
+                        <td style="color: ${c.reason ? '#ff4757' : '#b2bec3'};">${c.reason || 'Байхгүй'}</td>
+                        <td><b>${c.sudLevel}</b></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Хуудас ачаалагдахад ажиллана
+        window.onload = renderAdminDashboard;
+    </script>
+</body>
+</html>

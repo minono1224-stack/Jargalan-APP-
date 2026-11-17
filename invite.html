@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чандмань-Өндөр СӨБ - Урилгаар Эрх Идэвхжүүлэх</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --primary-hover: #ff4757;
+            --bg-color: #fff1f2;
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --border-color: #ffdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fbc531 0%, #ff6b81 50%, #70a1ff 100%);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 4px solid #fff;
+        }
+
+        h2 {
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #747d8c;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .step-box {
+            display: none;
+        }
+
+        .step-box.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #57606f;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: #fff9fa;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(255, 107, 129, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #2ed573;
+            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background-color: #26af5f;
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #57606f;
+        }
+
+        .switch-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .switch-text a:hover {
+            text-decoration: underline;
+        }
+
+        .info-badge {
+            background: #fff0f3;
+            border-left: 4px solid var(--primary-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #57606f;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 1. АЛХАМ: УРИЛГА ШАЛГАХ БОЛОН КОД АВАХ -->
+        <div id="step1View" class="step-box active">
+            <h2>💌 Урилга Идэвхжүүлэх</h2>
+            <p class="subtitle">Цэцэрлэг эсвэл багшаас ирсэн урилгыг баталгаажуулна</p>
+            
+            <div class="info-badge">
+                💡 Цэцэрлэгийн ажилтан эсвэл эцэг эх та бүртгэлтэй утасны дугаар эсвэл Gmail хаягаа оруулж нэг удаагийн код хүлээн авна уу.
+            </div>
+
+            <form onsubmit="event.preventDefault(); goToStep2();">
+                <div class="form-group">
+                    <label>📱 Бүртгэлтэй утас эсвэл Gmail хаяг</label>
+                    <input type="text" placeholder="Жишээ: 88992233 эсвэл parent@gmail.com" required>
+                </div>
+
+                <button type="submit" class="btn">📩 Баталгаажуулах Код Илгээх</button>
+            </form>
+
+            <div class="switch-text">
+                <p>Бүртгэлтэй хэрэглэгч үү? <a href="login.html">Нэвтрэх хуудас руу очих</a></p>
+            </div>
+        </div>
+
+        <!-- 2. АЛХАМ: КОД БАТАЛГААЖУУЛАХ БОЛОН НУУЦ ҮГ ҮҮСГЭХ -->
+        <div id="step2View" class="step-box">
+            <h2>🔑 Нууц Үг Үүсгэх</h2>
+            <p class="subtitle">Утас болон имэйл рүү ирсэн 6 оронтой кодыг оруулна[cite: 1]</p>
+
+            <form onsubmit="event.preventDefault(); alert('🎉 Таны эрх амжилттай идэвхжлээ! Одоо систем рүү нэвтэрч болно.'); window.location.href='login.html';">
+                <div class="form-group">
+                    <label>🔢 6 оронтой нэг удаагийн код</label>
+                    <input type="text" placeholder="123456" maxlength="6" style="text-align: center; font-size: 20px; letter-spacing: 5px;" required>
+                </div>
+
+                <div class="form-group">
+                    <label>🔒 Шинэ нууц үг зохиох</label>
+                    <input type="password" placeholder="Шинэ нууц үг оруулах" required>
+                </div>
+
+                <div class="form-group">
+                    <label>🔒 Нууц үг давтах</label>
+                    <input type="password" placeholder="Нууц үгээ дахин бичнэ үү" required>
+                </div>
+
+                <button type="submit" class="btn btn-secondary">✨ Эрхийг Идэвхжүүлж Нэвтрэх</button>
+            </form>
+
+            <div class="switch-text">
+                <p><a onclick="goBackToStep1()">⬅️ Дугаар өөрчлөх / Код дахин авах</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1-р алхамаас 2-р алхам руу шилжих
+        function goToStep2() {
+            document.getElementById('step1View').classList.remove('active');
+            document.getElementById('step2View').classList.add('active');
+        }
+
+        // Буцаад 1-р алхам руу орох
+        function goBackToStep1() {
+            document.getElementById('step2View').classList.remove('active');
+            document.getElementById('step1View').classList.add('active');
+        }
+    </script>
+</body>
+</html>

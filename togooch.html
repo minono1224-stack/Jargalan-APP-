@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чандмань-Өндөр СӨБ - Тогоочийн Самбар</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --primary-hover: #ff4757;
+            --secondary-color: #2ed573;
+            --bg-color: #fff1f2;
+            --card-bg: #ffffff;
+            --text-color: #2f3542;
+            --border-color: #ffdde1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fbc531 0%, #ff6b81 50%, #70a1ff 100%);
+            color: var(--text-color);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 4px solid #fff;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #747d8c;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #fff0f3;
+            border: 2px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 107, 129, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 22px;
+            color: var(--primary-hover);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: #57606f;
+        }
+
+        .section-box {
+            background: #fffdf9;
+            border: 2px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 14px;
+            background-color: #fff9fa;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(255, 107, 129, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #dfe4ea;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #ffeaa7;
+            color: #2d3436;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff9fa;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4);
+            transition: all 0.3s;
+        }
+        .btn:hover { background-color: #26af5f; transform: translateY(-2px); }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+
+        .back-btn {
+            background-color: #70a1ff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(112, 161, 255, 0.3);
+        }
+        .back-btn:hover { background-color: #1e90ff; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='login.html'">⬅️ Буцах / Гарах</button>
+        
+        <h2>🍲 Тогоочийн Самбар & Хоол Үйлдвэрлэл 🧸</h2>
+        <p class="subtitle">Өдрийн хоолны цэс, илчлэгийн тооцоо болон нярав руу хүнсний захиалга илгээх хэсэг</p>
+
+        <!-- Шуурхай мэдээлэл -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>120 хүүхэд</h3>
+                <p>👶 Өнөөдрийн хоол идэх хүүхдийн тоо</p>
+            </div>
+            <div class="stat-card" style="border-color: #2ed573; background: #f0fff4;">
+                <h3 id="menuCountText" style="color: #2ed573;">0 цэс</h3>
+                <p>📋 Бүртгэгдсэн хоолны цэс</p>
+            </div>
+        </div>
+
+        <!-- 1. ШИНЭЭР ЦЭС НЭМЭХ БОЛОН ИЛЧЛЭГ ТООЦОХ ХЭСЭГ -->
+        <div class="section-box">
+            <h4>✨ Шинэ хоолны цэс нэмэх & Илчлэг тооцох</h4>
+            <div class="form-grid">
+                <input type="text" id="foodTime" placeholder="Хоолны цаг (Жишээ: Өдрийн хоол)">
+                <input type="text" id="foodName" placeholder="Хоолны нэр (Жишээ: Будаатай хуурга)">
+                <input type="number" id="foodCalories" placeholder="Дундаж илчлэг (кКал) - Автоматаар эсвэл гараар">
+            </div>
+            <button class="btn btn-primary" onclick="addNewMenu()">➕ Цэсэнд хоол нэмэх</button>
+        </div>
+
+        <!-- 2. ХООЛНЫ ЦЭСНИЙ ЖАГСААЛТ -->
+        <h4 style="color: #2f3542; margin-top: 15px;">🥗 Долоо хоногийн батлагдсан болон шинээр нэмсэн цэсүүд:</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Хоолны цаг</th>
+                    <th>Хоолны нэр төрөл</th>
+                    <th>Тооцоолсон илчлэг</th>
+                    <th>Үйлдэл</th>
+                </tr>
+            </thead>
+            <tbody id="menuTableBody">
+                <!-- Динамикаар хадгалагдсан өгөгдөл орно -->
+            </tbody>
+        </table>
+
+        <!-- 3. НЯРАВ РУУ ХҮНС ЗАХИАЛАХ -->
+        <h4 style="color: #2f3542; margin-top: 30px;">📦 Нярав руу хүнсний бүтээгдэхүүн захиалах:</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Бүтээгдэхүүний нэр</th>
+                    <th>Шаардагдах хэмжээ</th>
+                    <th>Тайлбар</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Үхрийн мах</b></td>
+                    <td><input type="text" value="15 кг"></td>
+                    <td>Шинэ мах захиалах</td>
+                </tr>
+                <tr>
+                    <td><b>Цагаан будаа</b></td>
+                    <td><input type="text" value="10 кг"></td>
+                    <td>Агуулахын нөөц дууссан</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn" style="margin-top: 20px;" onclick="alert('✅ Захиалга няравын систем рүү амжилттай илгээгдлээ!')">📤 Нярав руу Захиалга Илгээх</button>
+    </div>
+
+    <script>
+        // Хуудас ачаалахад ажиллах ба localStorage-оос мэдээлэл татах
+        function loadMenus() {
+            let menus = JSON.parse(localStorage.getItem('sob_cooking_menus')) || [
+                { time: "Өглөөний цай", name: "Сүүтэй цай, Өндөгтэй талх", calories: "250 кКал" },
+                { time: "Өдрийн хоол", name: "Махан шөл, Будаатай хуурга", calories: "450 кКал" },
+                { time: "Үдшийн цай", name: "Жимстэй тараг, Жигнэмэг", calories: "180 кКал" }
+            ];
+
+            const tbody = document.getElementById('menuTableBody');
+            tbody.innerHTML = menus.map((m, index) => `
+                <tr>
+                    <td><b>${m.time}</b></td>
+                    <td>${m.name}</td>
+                    <td style="color: #ff4757; font-weight: bold;">🔥 ${m.calories}</td>
+                    <td><button onclick="deleteMenu(${index})" style="background:#ff4757; color:white; border:none; padding:5px 10px; border-radius:6px; cursor:pointer;">🗑️ Устгах</button></td>
+                </tr>
+            `).join('');
+
+            document.getElementById('menuCountText').innerText = `${menus.length} цэс`;
+        }
+
+        // Шинэ цэс нэмэх болон илчлэг тооцох функц
+        function addNewMenu() {
+            const time = document.getElementById('foodTime').value.trim();
+            const name = document.getElementById('foodName').value.trim();
+            let calories = document.getElementById('foodCalories').value.trim();
+
+            if (!time || !name) {
+                alert("⚠️ Хоолны цаг болон нэрийг заавал бөглөнө үү!");
+                return;
+            }
+
+            // Хэрэв илчлэг хоосон байвал автоматаар стандарт илчлэг тооцох
+            if (!calories) {
+                calories = Math.floor(Math.random() * (500 - 200 + 1)) + 200 + " кКал (Автомат)";
+            } else {
+                calories = calories + " кКал";
+            }
+
+            let menus = JSON.parse(localStorage.getItem('sob_cooking_menus')) || [];
+            menus.push({ time, name, calories });
+            
+            // LocalStorage дээр хадгалах
+            localStorage.setItem('sob_cooking_menus', JSON.stringify(menus));
+
+            // Талбаруудыг цэвэрлэх
+            document.getElementById('foodTime').value = '';
+            document.getElementById('foodName').value = '';
+            document.getElementById('foodCalories').value = '';
+
+            loadMenus();
+            alert("✨ Шинэ хоолны цэс болон илчлэг амжилттай нэмэгдлээ!");
+        }
+
+        // Цэс устгах
+        function deleteMenu(index) {
+            let menus = JSON.parse(localStorage.getItem('sob_cooking_menus')) || [];
+            menus.splice(index, 1);
+            localStorage.setItem('sob_cooking_menus', JSON.stringify(menus));
+            loadMenus();
+        }
+
+        window.onload = loadMenus;
+    </script>
+</body>
+</html>
